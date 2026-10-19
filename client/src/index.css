@@ -126,17 +126,3 @@ h1{color:#f6f4e8}h1 em{color:var(--sand)}.intro-copy{color:#a6c0c6}
 .result-list{flex:1;max-height:none;min-height:220px}
 .selected-detail{flex-shrink:0}
 @media(max-width:760px){.side-panel{height:auto;min-height:0}.result-list{flex:initial;max-height:330px;min-height:86px}}
-
-
-/* Make the discovery console visibly taller on desktop, not just stretch to a short viewport */
-@media(min-width:761px){
-  .side-panel{height:auto;min-height:760px}
-  .side-title-row{padding-top:19px;padding-bottom:17px}
-  .data-audit-strip{padding-top:12px;padding-bottom:12px}
-  .catalog-search-box{padding-top:14px;padding-bottom:12px}
-  .results-heading{padding-top:15px;padding-bottom:11px}
-  .score-target-switch{padding-top:14px;padding-bottom:14px}
-  .result-list{min-height:360px}
-  .site-card{min-height:96px;padding-top:13px;padding-bottom:13px}
-  .selected-detail{padding-top:16px;padding-bottom:15px}
-}
