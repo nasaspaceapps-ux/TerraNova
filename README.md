@@ -19,6 +19,10 @@ The previous preview could fail with `Worker failed to load` because MapLibre's 
 
 The workbook is a lead list, not a scientific validation package. A row may combine multiple sites, broad regions, caves, formations, or expedition locations. The app preserves the raw fields, avoids inventing regional centroids, and labels coordinates as verified, representative, approximate, geocoded, or unresolved. Every candidate should be checked against primary sources and field constraints before being used in a hackathon claim, mission plan, or field activity.
 
+## Scientific review status
+
+An independent source review was completed for all 44 workbook records. The result is **44/44 partly supported**, with 39 records receiving high review confidence and 5 medium confidence; 9 records are flagged high risk because they combine multiple sites or contain claims that need narrower wording or a primary citation. The reviewed corrections, supported claims, and unverifiable claims are preserved in `data/scientific_audit_report.json`. The interface intentionally keeps all workbook records labelled **Unverified lead** and does not present the spreadsheet as scientifically validated.
+
 ## Run locally
 
 ```bash
@@ -38,4 +42,5 @@ The static build is written to `dist/public`.
 - `client/public/terranova-logo.jpg` — team logo supplied for the project
 - `client/src/data/geminiCandidates.raw.json` — normalized workbook records used by the app
 - `data/worksheet_sites.json` — preserved worksheet extraction used for structural auditing
+- `data/scientific_audit_report.json` — per-record review verdicts, corrections, and unresolved claims
 - `client/src/data/` — catalog, planetary references, terrain helpers, and NASA source metadata
