@@ -140,7 +140,9 @@ function Home() {
   useEffect(() => {
     if (!selected || selected.lat === null || selected.lon === null) return;
     const key = scoreKey(selected.id, scoreTarget);
-    if (terrainBySite[key] || terrainStatus[key] === "loading") return;
+    // Keep a failed request stable. Previously the effect re-ran after setting
+    // `error`, immediately switched back to `loading`, and made the panel flicker.
+    if (terrainBySite[key] || terrainStatus[key]) return;
     setTerrainStatus((current) => ({ ...current, [key]: "loading" }));
     fetchEarthTerrainWindow(selected.lat, selected.lon, scoreTarget).then((result) => {
       setTerrainBySite((current) => ({ ...current, [key]: result }));
