@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { Minus, Pause, Play, Plus, RotateCcw } from "lucide-react";
+import { Map as MapIcon, Minus, Pause, Play, Plus, RotateCcw } from "lucide-react";
 import type { Site } from "@/data/sites";
 import type { PlanetaryFeature } from "@/data/planetaryFeatures";
 import { planetDefinitions, type PlanetBody } from "@/data/nasaSources";
@@ -25,6 +25,7 @@ type GlobeEngine = {
 type Props = {
   world: PlanetBody;
   onWorldChange: (world: PlanetBody) => void;
+  onShowMap?: () => void;
   selectedId: string;
   visibleSites: Site[];
   onSelect: (siteId: string) => void;
@@ -106,7 +107,7 @@ function makeMarker(color: number, selected: boolean, size = 0.022) {
   return group;
 }
 
-function PlanetGlobe({ world, onWorldChange, selectedId, visibleSites, onSelect, features, selectedFeatureId, onFeatureSelect, gisMarkers }: Props) {
+function PlanetGlobe({ world, onWorldChange, onShowMap, selectedId, visibleSites, onSelect, features, selectedFeatureId, onFeatureSelect, gisMarkers }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<GlobeEngine | null>(null);
   const onSelectRef = useRef(onSelect);
@@ -375,7 +376,7 @@ function PlanetGlobe({ world, onWorldChange, selectedId, visibleSites, onSelect,
             <i className={`planet-world-dot ${body.toLowerCase()}`} />{body}
           </button>)}
         </div>
-        <span className="planet-sites-counter">{world === "Earth" ? `${visibleEarthSiteCount} MAPPED SITES` : `${features.filter((item) => item.body === world).length} NAMED FEATURES · ${world.toUpperCase()}`}</span>
+        <div className="planet-topline-right"><span className="planet-sites-counter">{world === "Earth" ? `${visibleEarthSiteCount} MAPPED SITES` : `${features.filter((item) => item.body === world).length} NAMED FEATURES · ${world.toUpperCase()}`}</span>{onShowMap && <button className="planet-map-return" onClick={onShowMap}><MapIcon size={13} /> Earth map / Satellite</button>}</div>
       </div>
       <div className={`planet-viewport ${webglError ? "has-error" : ""}`} ref={mountRef}>
         {webglError && <div className="planet-fallback"><img src={current.texture} alt={`${world} surface map preview`} /><span>3D rendering is unavailable in this browser; showing the NASA basemap preview.</span></div>}

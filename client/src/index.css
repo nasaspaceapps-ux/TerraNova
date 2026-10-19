@@ -103,3 +103,18 @@ h1{color:#f6f4e8}h1 em{color:var(--sand)}.intro-copy{color:#a6c0c6}
 .score-target-switch button.active.mars{border-color:#f0a276;background:linear-gradient(135deg,#583a35,#7b4734);color:#fff0dd;box-shadow:0 0 0 1px rgba(240,162,118,.16),0 5px 16px rgba(0,0,0,.14)}
 .score-target-switch button.active.mars small{color:#ffd0b2}
 @media(max-width:520px){.mission-stamp{width:116px;min-width:116px}.mission-stamp strong{font-size:15px}.score-target-switch{padding:11px 9px;gap:7px}.score-target-switch button{min-height:52px;padding:8px 10px}.score-target-switch button strong{font-size:13px}.score-target-switch button small{font-size:8px}}
+
+
+/* Atlas workspace sizing: give the console more room and let the map fill its card */
+.workspace{grid-template-columns:minmax(0,1.58fr) minmax(440px,.94fr);gap:24px}
+.map-card{min-height:640px}
+.map-viewer{width:100%;min-width:0;min-height:510px}
+.earth-map-shell{width:100%;height:100%;min-width:0;flex:1}
+.earth-map-viewport{width:100%;min-height:455px}
+.planet-globe{width:100%;height:100%}
+.planet-topline-right{display:flex;align-items:center;gap:10px;min-width:0}
+.planet-map-return{display:flex;align-items:center;gap:5px;border:1px solid #4d7881;border-radius:4px;background:#12384b;color:#bcd8d5;padding:6px 8px;font:8px 'DM Mono',monospace;cursor:pointer;white-space:nowrap}
+.planet-map-return:hover{border-color:var(--cyan);background:#1a4d5e;color:#fff1d5}
+@media(max-width:1100px){.workspace{grid-template-columns:minmax(0,1.3fr) minmax(400px,.95fr)}.map-card{min-height:610px}.map-viewer{min-height:480px}}
+@media(max-width:760px){.workspace{display:flex;flex-direction:column}.map-card{min-height:560px}.map-viewer{min-height:440px}.earth-map-viewport{min-height:370px}.planet-topline-right{gap:5px}.planet-map-return{padding:5px 6px;font-size:7px}}
+@media(max-width:520px){.workspace{padding-left:8px;padding-right:8px}.map-card{min-height:540px}.map-viewer{min-height:420px}.earth-map-viewport{min-height:350px}.planet-sites-counter{display:none}.planet-map-return{font-size:7px}}
