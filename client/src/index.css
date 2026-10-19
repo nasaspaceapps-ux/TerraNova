@@ -118,3 +118,11 @@ h1{color:#f6f4e8}h1 em{color:var(--sand)}.intro-copy{color:#a6c0c6}
 @media(max-width:1100px){.workspace{grid-template-columns:minmax(0,1.3fr) minmax(400px,.95fr)}.map-card{min-height:610px}.map-viewer{min-height:480px}}
 @media(max-width:760px){.workspace{display:flex;flex-direction:column}.map-card{min-height:560px}.map-viewer{min-height:440px}.earth-map-viewport{min-height:370px}.planet-topline-right{gap:5px}.planet-map-return{padding:5px 6px;font-size:7px}}
 @media(max-width:520px){.workspace{padding-left:8px;padding-right:8px}.map-card{min-height:540px}.map-viewer{min-height:420px}.earth-map-viewport{min-height:350px}.planet-sites-counter{display:none}.planet-map-return{font-size:7px}}
+
+
+/* Use the full vertical workspace instead of leaving empty space below the console */
+.workspace{align-items:stretch}
+.side-panel{height:calc(100vh - 110px);max-height:none;min-height:620px}
+.result-list{flex:1;max-height:none;min-height:220px}
+.selected-detail{flex-shrink:0}
+@media(max-width:760px){.side-panel{height:auto;min-height:0}.result-list{flex:initial;max-height:330px;min-height:86px}}
