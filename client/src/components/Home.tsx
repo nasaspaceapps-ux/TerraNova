@@ -237,7 +237,7 @@ function Home() {
           </div>
 
           <div className="results-heading"><div><span className="section-index">03</span><div><h2>Field-site catalog / المواقع</h2><p>{ranked.length} visible · {target === "Both" ? "Moon + Mars" : `${target} screening`} · workbook leads remain unverified</p></div></div><button className="sort-chip" onClick={nextSort} title="Cycle catalog/name/score order"><ArrowDownUp size={12} /> {sortBy.toUpperCase()}</button></div>
-          <div className="score-target-switch"><span>SCORE REFERENCE / مرجع الدرجة</span><button className={scoreTarget === "Moon" ? "active moon" : "moon"} onClick={() => setScoreTarget("Moon")}>Moon</button><button className={scoreTarget === "Mars" ? "active mars" : "mars"} onClick={() => setScoreTarget("Mars")}>Mars</button></div>
+          <div className="score-target-switch"><span>TERRAIN SCORE / مرجع التضاريس</span><button className={scoreTarget === "Moon" ? "active moon" : "moon"} onClick={() => setScoreTarget("Moon")}><strong>Moon</strong><small>تضاريس القمر</small></button><button className={scoreTarget === "Mars" ? "active mars" : "mars"} onClick={() => setScoreTarget("Mars")}><strong>Mars</strong><small>تضاريس المريخ</small></button></div>
           <div className="result-list">
             {ranked.map((site, index) => {
               const key = scoreKey(site.id, scoreTarget);

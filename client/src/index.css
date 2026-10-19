@@ -86,3 +86,20 @@ h1{color:#f6f4e8}h1 em{color:var(--sand)}.intro-copy{color:#a6c0c6}
 .tools-toggle-row{border-top-color:#2b5667}.tools-toggle{border-color:#35677a;background:#12394b;color:#c0d5d1}.tools-toggle:hover,.tools-toggle.active{border-color:var(--cyan);color:var(--sand)}.tools-toggle span{background:#385c43;color:#e2f0b7}.gis-overlay-hint{color:#8eafb5}.compare-bar{border-top-color:#8e784d;background:#273d35}.compare-bar span{color:#d7e4c4}.compare-bar>button:not(.clear-compare){background:var(--orange);color:#fff5df}.compare-bar .clear-compare{border-color:#638178;color:#d3e0d1}
 .bottom-bar{border-top-color:#24495d;color:#7799a5}.bottom-bar strong{color:#a9c5b9}.bottom-bar button{color:#c0d99b}.modal-backdrop{background:rgba(3,15,26,.82)}.modal-card{background:#0d2d43;border-color:#5a7e76}.modal-head h2{color:#f1f4e8}.modal-warning{background:#30402d;border-color:#708153;color:#d7e5bb}.modal-warning svg{color:var(--earth-green)}.modal-copy{color:#b2c9cb}.method-note{background:#092337;color:#b3c9c9}.method-note strong{color:#dbeaa9}.source-list{border-top-color:#2e5a6b}.source-list a{border-bottom-color:#2a5364}.source-list a:hover{background:#154055}.source-list a strong{color:#e2eee5}.source-list a small{color:#91afb7}.modal-close{border-color:#718b5d;background:#385238;color:#edf4cb}.modal-close:hover{background:#4c6a42}
 @media(max-width:760px){.topbar{background:rgba(7,28,46,.97)}.side-panel{background:linear-gradient(160deg,#10334a,#0a2438 52%,#0a2033)}}
+
+
+/* Mission lockup and terrain reference control readability fixes */
+.mission-stamp{width:124px;min-width:124px;overflow:hidden;padding-left:10px;padding-right:10px}
+.mission-stamp strong{display:block;max-width:100%;font-size:16px;letter-spacing:.08em;line-height:1.15;white-space:nowrap;overflow:hidden}
+.mission-stamp small{white-space:nowrap;letter-spacing:.08em}
+.score-target-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px 14px;background:linear-gradient(110deg,#0d3047,#123b4b);align-items:stretch}
+.score-target-switch>span{grid-column:1 / -1;margin:0;color:#b6d2ce;font-size:9px;letter-spacing:.1em}
+.score-target-switch button{min-height:48px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;padding:8px 12px;border:1px solid #3c7180;border-radius:6px;background:#12384b;color:#b8d2d2;text-align:left;transition:transform .16s ease,border-color .16s ease,background .16s ease}
+.score-target-switch button:hover{transform:translateY(-1px);border-color:var(--cyan);background:#1a4d5e}
+.score-target-switch button strong{font:600 14px/1 'Space Grotesk',sans-serif;letter-spacing:.02em}
+.score-target-switch button small{font:9px/1.2 'Noto Sans Arabic','DM Sans',sans-serif;color:#91b9bf}
+.score-target-switch button.active.moon{border-color:#c4d5b2;background:linear-gradient(135deg,#314b4b,#486145);color:#f4f5df;box-shadow:0 0 0 1px rgba(196,213,178,.18),0 5px 16px rgba(0,0,0,.14)}
+.score-target-switch button.active.moon small{color:#d9e6c2}
+.score-target-switch button.active.mars{border-color:#f0a276;background:linear-gradient(135deg,#583a35,#7b4734);color:#fff0dd;box-shadow:0 0 0 1px rgba(240,162,118,.16),0 5px 16px rgba(0,0,0,.14)}
+.score-target-switch button.active.mars small{color:#ffd0b2}
+@media(max-width:520px){.mission-stamp{width:116px;min-width:116px}.mission-stamp strong{font-size:15px}.score-target-switch{padding:11px 9px;gap:7px}.score-target-switch button{min-height:52px;padding:8px 10px}.score-target-switch button strong{font-size:13px}.score-target-switch button small{font-size:8px}}
