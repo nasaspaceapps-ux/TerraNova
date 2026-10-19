@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
   Activity, ArrowDownUp, ArrowUpRight, BadgeCheck, BarChart3, Check, ChevronDown,
-  CircleHelp, Compass, Database, Filter, Layers3, MapPin, Search, SlidersHorizontal,
+  CircleHelp, Database, Filter, Layers3, MapPin, Search, SlidersHorizontal,
   Sparkles, X, ArrowLeftRight,
 } from "lucide-react";
 import { sites as catalogSites, type Site, type Target } from "@/data/sites";
@@ -10,6 +10,7 @@ import { calculateAnalogScore, type AnalogTargetBody } from "@/data/analogScore"
 import { fetchEarthTerrainWindow, type EarthTerrainWindow } from "@/data/earthTerrain";
 import { gisCentroidMarkers, type GISLayer } from "@/data/gisLayers";
 import { planetarySources, type PlanetBody } from "@/data/nasaSources";
+import { workbookAudit } from "@/data/workbookAudit";
 import AIScout from "@/components/AIScout";
 import NasaClimateSnapshot from "@/components/NasaClimateSnapshot";
 
@@ -178,7 +179,7 @@ function Home() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand-lockup"><div className="brand-symbol"><Compass size={20} strokeWidth={1.7} /><span /></div><div><div className="brand-name">TERRA<span>NOVA</span></div><div className="brand-caption">PLANETARY ANALOG DISCOVERY SYSTEM</div></div></div>
+        <div className="brand-lockup"><img className="brand-logo" src="/terranova-logo.jpg" alt="TerraNova logo" /><div><div className="brand-name">TERRA<span>NOVA</span></div><div className="brand-caption">PLANETARY ANALOG DISCOVERY SYSTEM</div></div></div>
         <div className="topbar-center"><span className="live-indicator" /> NASA SPACE APPS CHALLENGE <span className="topbar-sep">/</span> FIELD RESEARCH PROTOTYPE</div>
         <button className="source-button" onClick={() => setSourcesOpen(true)}><Database size={15} /> Data register / المصادر <ArrowUpRight size={13} /></button>
       </header>
@@ -186,7 +187,7 @@ function Home() {
       <main className="workspace">
         <section className="main-column">
           <div className="intro-row">
-            <div><div className="eyebrow"><span className="eyebrow-line" /> IDENTIFY EARTH LOCATIONS <span className="eyebrow-dot">·</span> MOON & MARS ANALOGS</div><h1>Find field terrains for <em>off-world missions.</em></h1><p className="intro-copy">Compare open planetary data, map candidate regions, and keep every hypothesis tied to its evidence. / قارن بيانات الكواكب وحدد مناطق تستحق الدراسة.</p></div>
+            <div><div className="eyebrow"><span className="eyebrow-line" /> 2026 NASA SPACE APPS <span className="eyebrow-dot">·</span> MOON BASES & MARS</div><h1>Identify Earth locations that analog <em>permanent Moon bases and Mars.</em></h1><p className="intro-copy">Screen topography, geology, environment, and resources before a mission flies—then keep every hypothesis tied to evidence. / قارن التضاريس والجيولوجيا والبيئة والموارد قبل اختيار مواقع تشبيهية للقمر والمريخ.</p></div>
             <div className="mission-stamp"><span>MISSION</span><strong>TERRANOVA</strong><small>EARTH ↔ MOON ↔ MARS</small></div>
           </div>
 
@@ -214,7 +215,8 @@ function Home() {
         </section>
 
         <aside className="side-panel">
-          <div className="side-title-row"><div><span className="section-index">02</span><div><h2>Discovery console / وحدة الاستكشاف</h2><p>{catalogSites.length} spreadsheet candidates · {allSites.filter((site) => site.lat !== null && site.lon !== null).length} records with coordinates</p></div></div><div className="console-status"><span /> OPEN DATA</div></div>
+          <div className="side-title-row"><div><span className="section-index">02</span><div><h2>Discovery console / وحدة الاستكشاف</h2><p>{workbookAudit.totalRows} workbook rows · {allSites.filter((site) => site.lat !== null && site.lon !== null).length} display points · {workbookAudit.coreFieldCoverage}% core-field coverage</p></div></div><div className="console-status"><span /> OPEN DATA</div></div>
+          <div className="data-audit-strip"><div><strong>DATA REGISTER / سجل البيانات</strong><span>{workbookAudit.totalRows} Excel rows loaded · {workbookAudit.uniqueIds} unique IDs</span></div><span className="audit-state"><i /> STRUCTURE CHECKED · SOURCE STATUS VISIBLE</span></div>
 
           <AIScout target={target} sites={allSites} onAddLead={addAILead} />
 
@@ -262,7 +264,7 @@ function Home() {
             <p className="detail-description">{selected.description}</p>
             {selected.why && <div className="score-explainer"><Activity size={13} /><span>{selected.why}</span></div>}
             <div className="selected-score-box"><div className="selected-score-head"><strong>ANALOG MATCH · TERRAIN ONLY</strong><span>{scoreTarget} reference</span></div><div className="selected-score-value">{selectedScore.score === null ? "—" : `${selectedScore.score}%`} <small>coverage {selectedScore.coverage}%</small></div><p>{selectedScore.interpretation}</p>{terrainStatus[selectedScoreKey] === "loading" && <small className="terrain-status">Sampling ASTER GDEM · 9 regional centres…</small>}{terrainStatus[selectedScoreKey] === "error" && <button className="retry-terrain" onClick={retrySelectedTerrain}>ASTER sample unavailable · retry</button>}{selected.lat === null || selected.lon === null ? <small className="terrain-status">No coordinate means no remote terrain sample and no score.</small> : null}</div>
-            <div className="detail-tags">{selected.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+            <div className="detail-tags" aria-label="Site tags">{selected.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             <NasaClimateSnapshot site={selected} />
             {selected.sourceFields && Object.keys(selected.sourceFields).some((key) => selected.sourceFields?.[key]) && <details className="original-fields"><summary>Original Excel fields / حقول الملف الأصلية {selected.spreadsheetRow ? `· row ${selected.spreadsheetRow}` : ""}</summary><dl>{Object.entries(selected.sourceFields).filter(([, value]) => value?.trim()).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl></details>}
             {selected.sources?.length ? <div className="detail-source-links">{selected.sources.map((source) => <a href={source.url} key={`${source.label}-${source.url}`} target="_blank" rel="noreferrer">{source.label} <ArrowUpRight size={11} /></a>)}</div> : selected.origin === "excel" ? <div className="detail-source-links"><span>Source: user-supplied Excel · per-site scientific citations were not present in the workbook.</span></div> : null}
