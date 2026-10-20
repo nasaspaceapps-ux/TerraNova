@@ -6,6 +6,17 @@ type CoordinateOverride = Partial<Pick<Site, "lat" | "lon" | "coordinateStatus" 
 };
 
 const verifiedCoordinateOverrides: Record<string, CoordinateOverride> = {
+  "excel-01": {
+    lat: 55.8876354462,
+    lon: -63.3032226563,
+    coordinateStatus: "representative-only",
+    coordinateSource: "NASA Earth Observatory map point; corroborated by peer-reviewed Mistastin study",
+    coordinateNote: "NASA’s map point is a defensible reference for Mistastin Lake/crater, but it is not a surveyed crater boundary. The workbook’s extra 40 seconds of west longitude is not supported by the peer-reviewed source.",
+    sources: [
+      { label: "NASA Earth Observatory · Mistastin Lake", url: "https://science.nasa.gov/earth/earth-observatory/violent-formation-for-mistastin-lake-148491/" },
+      { label: "Mader et al. 2018 · Mistastin impactites", url: "https://onlinelibrary.wiley.com/doi/full/10.1111/maps.13173" },
+    ],
+  },
   "excel-02": {
     lat: null,
     lon: null,
