@@ -34,6 +34,18 @@ pnpm exec vite preview --host 0.0.0.0 --port 4173
 
 The static build is written to `dist/public`.
 
+## Vercel deployment
+
+The committed `vercel.json` builds the static Vite app with `pnpm run build` and
+serves `dist/public` as an SPA. The previous default build also bundled
+`server/_core/index.ts`; that server bundle is not required by this public
+static app and caused Vercel's `entry point ... cannot be marked as external`
+failure. The legacy server build remains available as `pnpm run build:server`.
+
+GitHub is the source-code repository, not a live web server. Use the Vercel
+deployment URL for the running application. A blank GitHub Pages screen means
+Pages has not been configured; it does not mean the React source is missing.
+
 ## Main paths
 
 - `client/src/components/Home.tsx` — application shell, catalog workflow, and data-register UI

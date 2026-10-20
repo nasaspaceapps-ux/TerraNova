@@ -1,0 +1,15 @@
+{
+  "framework": "vite",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist/public",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "rewrites": [
+    { "source": "/((?!assets/|api/|maplibre-gl-worker\\.mjs|terranova-logo\\.jpg|manus-routes\\.json).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/maplibre-gl-worker.mjs",
+      "headers": [{ "key": "Content-Type", "value": "text/javascript; charset=utf-8" }, { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

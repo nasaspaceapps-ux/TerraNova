@@ -5,13 +5,14 @@ import { Map, RotateCcw, Satellite } from "lucide-react";
 import type { GISLayer } from "@/data/gisData";
 import type { PlanetBody } from "@/data/nasaSources";
 import type { Site } from "@/data/sites";
+import { evidenceBandForSite } from "@/data/missionScenarios";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@/terra-map.css";
 
 const OPENFREEMAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 // Vite can rewrite MapLibre's package-relative worker URL to an internal /@fs path in preview.
 // Ship the official worker as a same-origin public asset so preview and production use the same URL.
-setWorkerUrl("/maplibre-gl-worker.mjs");
+setWorkerUrl(`${import.meta.env.BASE_URL}maplibre-gl-worker.mjs`);
 const IMAGERY_SOURCE_ID = "terra-esri-imagery-source";
 const IMAGERY_LAYER_ID = "terra-esri-imagery";
 const SITE_SOURCE_ID = "terra-site-source";
@@ -33,7 +34,7 @@ function makeSiteCollection(sites: Site[]): FeatureCollection<Point> {
     features: sites.filter((site) => typeof site.lat === "number" && typeof site.lon === "number").map((site) => ({
       type: "Feature",
       id: site.id,
-      properties: { id: site.id, name: site.name, kind: site.kind, country: site.country, confidence: site.confidence },
+      properties: { id: site.id, name: site.name, kind: site.kind, country: site.country, confidence: site.confidence, evidenceBand: evidenceBandForSite(site) },
       geometry: { type: "Point", coordinates: [site.lon!, site.lat!] },
     } as Feature<Point>)),
   };
@@ -141,7 +142,7 @@ function EarthGlobeMap({ sites, selectedId, onSelect, onWorldChange, onShowNASA,
           source: SITE_SOURCE_ID,
           paint: {
             "circle-radius": ["case", ["==", ["get", "id"], currentRef.current.selectedId], 8, 5],
-            "circle-color": ["case", ["==", ["get", "kind"], "Reference analog"], "#74d8d1", "#d3ef70"],
+            "circle-color": ["match", ["get", "evidenceBand"], "high", "#74d8d1", "medium", "#d3ef70", "low", "#e28a60", "unresolved", "#8a9890", "#d3ef70"],
             "circle-stroke-color": "#10201d",
             "circle-stroke-width": 1.8,
             "circle-opacity": 0.95,
@@ -231,7 +232,7 @@ function EarthGlobeMap({ sites, selectedId, onSelect, onWorldChange, onShowNASA,
         <div className="earth-map-coordinate">{selected?.lat === null || selected?.lat === undefined ? "NO COORDINATE · UNLOCATED LEAD" : `${selected.lat.toFixed(4)}°, ${selected.lon?.toFixed(4)}° · ${selected.coordinateStatus ?? "approximate"}`}</div>
         <div className="earth-map-source-note">OpenFreeMap / OpenStreetMap · Esri imagery attribution shown on map</div>
       </div>
-      <div className="earth-map-footer"><span><i className="map-legend-dot reference" /> Context reference</span><span><i className="map-legend-dot candidate" /> Unverified candidate</span><small>Map labels and imagery are not NASA measurement layers.</small></div>
+      <div className="earth-map-footer"><span><i className="map-legend-dot reference" /> High evidence</span><span><i className="map-legend-dot candidate" /> Partial</span><span><i className="map-legend-dot review" /> Review / unresolved</span><small>Marker colour shows evidence quality, not scientific suitability.</small></div>
     </section>
   );
 }

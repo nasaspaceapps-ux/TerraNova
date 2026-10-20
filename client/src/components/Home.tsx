@@ -1,8 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
   Activity, ArrowDownUp, ArrowUpRight, BadgeCheck, BarChart3, Check, ChevronDown,
-  CircleHelp, Database, Filter, Layers3, MapPin, Search, SlidersHorizontal,
-  Sparkles, X, ArrowLeftRight,
+  CircleHelp, Database, Download, FileText, Filter, Languages, Layers3, MapPin,
+  Pause, Play, Search, SlidersHorizontal, Sparkles, X, ArrowLeftRight,
 } from "lucide-react";
 import { sites as catalogSites, type Site, type Target } from "@/data/sites";
 import { planetaryFeatures, planetaryFeaturesFor } from "@/data/planetaryFeatures";
@@ -11,6 +11,7 @@ import { fetchEarthTerrainWindow, type EarthTerrainWindow } from "@/data/earthTe
 import { gisCentroidMarkers, type GISLayer } from "@/data/gisLayers";
 import { planetarySources, type PlanetBody } from "@/data/nasaSources";
 import { workbookAudit } from "@/data/workbookAudit";
+import { calculateMissionScore, evidenceBandForSite, evidenceLabel, missionScenarios, type MissionScenarioId } from "@/data/missionScenarios";
 import AIScout from "@/components/AIScout";
 import NasaClimateSnapshot from "@/components/NasaClimateSnapshot";
 
@@ -91,6 +92,10 @@ function Home() {
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [missionCompareOpen, setMissionCompareOpen] = useState(false);
   const [missionCompareSiteId, setMissionCompareSiteId] = useState("reykjanes");
+  const [missionBriefOpen, setMissionBriefOpen] = useState(false);
+  const [scenarioId, setScenarioId] = useState<MissionScenarioId>("moon-base");
+  const [demoRunning, setDemoRunning] = useState(false);
+  const [language, setLanguage] = useState<"en" | "ar">("en");
   const [gisOpen, setGisOpen] = useState(false);
   const [gisLayers, setGisLayers] = useState<GISLayer[]>([]);
   const [aiSites, setAiSites] = useState<Site[]>([]);
@@ -135,7 +140,16 @@ function Home() {
   const selectedScoreKey = selected ? scoreKey(selected.id, scoreTarget) : "";
   const selectedTerrain = selected ? terrainBySite[selectedScoreKey] ?? null : null;
   const selectedScore = calculateAnalogScore(selectedTerrain, scoreTarget);
+  const scenario = missionScenarios.find((item) => item.id === scenarioId) ?? missionScenarios[0];
+  const selectedMissionScore = calculateMissionScore(selected, selectedTerrain, scenario);
+  const selectedEvidenceBand = evidenceBandForSite(selected);
   const workbookUnlocatedCount = catalogSites.filter((site) => site.origin === "excel" && (site.lat === null || site.lon === null)).length;
+
+  const ui = language === "ar" ? {
+    demo: "تشغيل عرض 90 ثانية", brief: "ملخص المهمة", scenario: "سيناريو المهمة", evidence: "جودة الأدلة", running: "العرض يعمل الآن",
+  } : {
+    demo: "Run 90-second demo", brief: "Mission brief", scenario: "Mission scenario", evidence: "Evidence quality", running: "Demo running",
+  };
 
   useEffect(() => {
     if (!selected || selected.lat === null || selected.lon === null) return;
@@ -155,6 +169,20 @@ function Home() {
       setTerrainStatus((current) => ({ ...current, [key]: "error" }));
     });
   }, [selected?.id, selected?.lat, selected?.lon, scoreTarget, terrainBySite, terrainStatus]);
+
+  useEffect(() => {
+    if (!demoRunning) return;
+    const demoSites = allSites.filter((site) => site.lat !== null && site.lon !== null).slice(0, 6);
+    if (!demoSites.length) return;
+    let index = 0;
+    setSelectedId(demoSites[0].id);
+    const interval = window.setInterval(() => {
+      index = (index + 1) % demoSites.length;
+      setSelectedId(demoSites[index].id);
+    }, 3500);
+    const timeout = window.setTimeout(() => setDemoRunning(false), 90000);
+    return () => { window.clearInterval(interval); window.clearTimeout(timeout); };
+  }, [demoRunning, allSites]);
 
   const changeWorld = (body: PlanetBody) => {
     setActiveWorld(body);
@@ -177,13 +205,22 @@ function Home() {
     setTerrainStatus((current) => { const next = { ...current }; delete next[key]; return next; });
   };
   const nextSort = () => setSortBy((current) => current === "catalog" ? "name" : current === "name" ? "score" : "catalog");
+  const startDemo = () => {
+    setTarget("Both");
+    setRegion("All regions");
+    setKindFilter("All site types");
+    setConfidence("Any confidence");
+    setCoordinateFilter("All coordinates");
+    setSubmittedQuery("");
+    setDemoRunning(true);
+  };
 
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand-lockup"><img className="brand-logo" src="/terranova-logo.jpg" alt="TerraNova logo" /><div><div className="brand-name">TERRA<span>NOVA</span></div><div className="brand-caption">PLANETARY ANALOG DISCOVERY SYSTEM</div></div></div>
+        <div className="brand-lockup"><img className="brand-logo" src={`${import.meta.env.BASE_URL}terranova-logo.jpg`} alt="TerraNova logo" /><div><div className="brand-name">TERRA<span>NOVA</span></div><div className="brand-caption">PLANETARY ANALOG DISCOVERY SYSTEM</div></div></div>
         <div className="topbar-center"><span className="live-indicator" /> NASA SPACE APPS CHALLENGE <span className="topbar-sep">/</span> FIELD RESEARCH PROTOTYPE</div>
-        <button className="source-button" onClick={() => setSourcesOpen(true)}><Database size={15} /> Data register / المصادر <ArrowUpRight size={13} /></button>
+        <div className="topbar-actions"><button className="language-toggle" onClick={() => setLanguage((value) => value === "en" ? "ar" : "en")} aria-label="Toggle interface language"><Languages size={14} /> {language === "en" ? "العربية" : "EN"}</button><button className={demoRunning ? "demo-button active" : "demo-button"} onClick={() => demoRunning ? setDemoRunning(false) : startDemo()}>{demoRunning ? <Pause size={13} /> : <Play size={13} />} {demoRunning ? ui.running : ui.demo}</button><button className="source-button" onClick={() => setSourcesOpen(true)}><Database size={15} /> Data register / المصادر <ArrowUpRight size={13} /></button></div>
       </header>
 
       <main className="workspace">
@@ -219,6 +256,8 @@ function Home() {
         <aside className="side-panel">
           <div className="side-title-row"><div><span className="section-index">02</span><div><h2>Discovery console / وحدة الاستكشاف</h2><p>{workbookAudit.totalRows} workbook rows · {allSites.filter((site) => site.lat !== null && site.lon !== null).length} display points · {workbookAudit.coreFieldCoverage}% core-field coverage</p></div></div><div className="console-status"><span /> OPEN DATA</div></div>
           <div className="data-audit-strip"><div><strong>DATA REGISTER / سجل البيانات</strong><span>{workbookAudit.totalRows} Excel rows loaded · {workbookAudit.uniqueIds} unique IDs</span></div><span className="audit-state"><i /> STRUCTURE CHECKED · SOURCE STATUS VISIBLE</span></div>
+
+          <section className="mission-planner" aria-label="Mission scenario planner"><div className="planner-head"><div><span className="planner-kicker">{ui.scenario} / التخطيط</span><strong>Evidence-weighted decision mode</strong></div><span className="planner-pill">{scenario.target}</span></div><select value={scenarioId} onChange={(event) => setScenarioId(event.target.value as MissionScenarioId)} aria-label="Choose mission scenario">{missionScenarios.map((item) => <option value={item.id} key={item.id}>{language === "ar" ? `${item.labelAr} · ${item.shortAr}` : `${item.label} · ${item.short}`}</option>)}</select><p>Score combines terrain, evidence, coordinate defensibility, environment and access. It is a triage aid—not a landing recommendation.</p></section>
 
           <AIScout target={target} sites={allSites} onAddLead={addAILead} />
 
@@ -266,6 +305,7 @@ function Home() {
             <p className="detail-description">{selected.description}</p>
             {selected.why && <div className="score-explainer"><Activity size={13} /><span>{selected.why}</span></div>}
             <div className="selected-score-box"><div className="selected-score-head"><strong>ANALOG MATCH · TERRAIN ONLY</strong><span>{scoreTarget} reference</span></div><div className="selected-score-value">{selectedScore.score === null ? "—" : `${selectedScore.score}%`} <small>coverage {selectedScore.coverage}%</small></div><p>{selectedScore.interpretation}</p>{terrainStatus[selectedScoreKey] === "loading" && <small className="terrain-status">Sampling ASTER GDEM · 9 regional centres…</small>}{terrainStatus[selectedScoreKey] === "error" && <button className="retry-terrain" onClick={retrySelectedTerrain}>ASTER sample unavailable · retry</button>}{selected.lat === null || selected.lon === null ? <small className="terrain-status">No coordinate means no remote terrain sample and no score.</small> : null}</div>
+            <section className="evidence-card"><div className="evidence-card-head"><div><span className="planner-kicker">{ui.evidence}</span><strong>{evidenceLabel(selectedEvidenceBand)}</strong></div><span className={`evidence-dot ${selectedEvidenceBand}`} /></div><p>{selectedMissionScore.caveat}</p><div className="decision-score"><div><span>{scenario.short} / {scenario.shortAr}</span><strong>{selectedMissionScore.score}<small>/100</small></strong></div><div className="decision-bar"><i style={{ width: `${selectedMissionScore.score}%` }} /></div></div><div className="evidence-factors"><span>Terrain <b>{selectedMissionScore.terrainScore}</b></span><span>Evidence <b>{selectedMissionScore.evidence}</b></span><span>Coordinates <b>{selectedMissionScore.coordinate}</b></span><span>Environment <b>{selectedMissionScore.environment}</b></span><span>Access <b>{selectedMissionScore.access}</b></span></div><div className="evidence-actions"><button onClick={() => setMissionBriefOpen(true)}><FileText size={13} /> {ui.brief}</button><span>Strongest factor: {selectedMissionScore.strongest}</span></div></section>
             <div className="detail-tags" aria-label="Site tags">{selected.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             <NasaClimateSnapshot site={selected} />
             {selected.sourceFields && Object.keys(selected.sourceFields).some((key) => selected.sourceFields?.[key]) && <details className="original-fields"><summary>Original Excel fields / حقول الملف الأصلية {selected.spreadsheetRow ? `· row ${selected.spreadsheetRow}` : ""}</summary><dl>{Object.entries(selected.sourceFields).filter(([, value]) => value?.trim()).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl></details>}
@@ -292,6 +332,7 @@ function Home() {
         <div className="method-note"><strong>Coordinate and GIS policy</strong><p>User spreadsheets preserve their raw fields and source descriptions. Coordinates are source-labelled as verified, representative, approximate, or unresolved. GIS files are processed in browser memory only; geometry is never sent to the AI Scout. Earth map tiles are from OpenFreeMap/OpenStreetMap with optional Esri World Imagery and visible attribution. / تُحفظ قيود الإحداثيات ومصدر كل طبقة بوضوح.</p></div>
         <button className="modal-close" onClick={() => setSourcesOpen(false)}>Back to atlas / عودة للأطلس</button></section></div>}
 
+      {missionBriefOpen && <div className="modal-backdrop" onClick={() => setMissionBriefOpen(false)}><section className="modal-card mission-brief" onClick={(event) => event.stopPropagation()}><div className="modal-head"><div><span className="section-index">MISSION BRIEF / ملخص المهمة</span><h2>{selected.name}</h2></div><button className="icon-button" onClick={() => setMissionBriefOpen(false)} aria-label="Close"><X size={17} /></button></div><div className="brief-hero"><img src={`${import.meta.env.BASE_URL}terranova-logo.jpg`} alt="TerraNova" /><div><strong>{scenario.label}</strong><span>{scenario.labelAr} · evidence-weighted triage</span></div><b>{selectedMissionScore.score}<small>/100</small></b></div><div className="brief-grid"><div><span>LOCATION</span><strong>{sitePlace(selected)}</strong><small>{coordinateLabel(selected)}</small></div><div><span>EVIDENCE</span><strong>{evidenceLabel(selectedEvidenceBand)}</strong><small>{selected.confidence}</small></div><div><span>TARGET</span><strong>{scenario.target}</strong><small>{selected.target} analogue context</small></div><div><span>LEAD STATUS</span><strong>{selected.kind}</strong><small>{selected.origin === "excel" ? "User-supplied workbook" : "Curated reference"}</small></div></div><div className="brief-section"><strong>Decision note / ملاحظة القرار</strong><p>{selectedMissionScore.caveat}</p><p>{selected.why}</p></div><div className="brief-section"><strong>Limits / القيود</strong><p>This is an Earth analogue hypothesis and a screening aid. It is not a landing-site recommendation, engineering assessment, or proof of resource availability.</p></div><div className="brief-actions"><button className="modal-close" onClick={() => window.print()}><Download size={14} /> Print / Save PDF</button><button className="modal-close secondary" onClick={() => setMissionBriefOpen(false)}>Back to atlas / عودة للأطلس</button></div></section></div>}
       {missionCompareOpen && <Suspense fallback={<div className="planet-suspense">Loading measured comparison…</div>}><MissionComparator site={missionCompareSite} sites={allSites} onSiteChange={setMissionCompareSiteId} onClose={() => setMissionCompareOpen(false)} /></Suspense>}
 
       {compareOpen && compared.length > 0 && <div className="modal-backdrop" onClick={() => setCompareOpen(false)}><section className="modal-card compare-modal" onClick={(event) => event.stopPropagation()}><div className="modal-head"><div><span className="section-index">SIDE-BY-SIDE / مقارنة جانبية</span><h2>Compare field records / قارن المواقع</h2></div><button className="icon-button" onClick={() => setCompareOpen(false)} aria-label="Close"><X size={17} /></button></div><p className="compare-disclaimer">Raw source fields and coordinate confidence only · no illustrative profile indices.</p><div className="comparison-table"><div className="comparison-row comparison-label-row"><span>FIELD</span>{compared.map((site) => <strong key={site.id}>{site.name}</strong>)}</div>{([["Target", (site: Site) => site.target], ["Region", (site: Site) => sitePlace(site)], ["Coordinates", coordinateLabel], ["Coordinate status", coordinateStatusLabel], ["Geology", (site: Site) => site.geology || site.analogCategory || "Not reported"], ["Environment", (site: Site) => site.environment || site.tags.join(" · ") || "Not reported"], ["Mission applications", (site: Site) => site.missionApplications || site.goalFeature || "Not reported"], ["Source confidence", (site: Site) => site.confidence]] as [string, (site: Site) => string][]).map(([label, value]) => <div className="comparison-row" key={label}><span>{label}</span>{compared.map((site) => <b key={site.id}>{value(site)}</b>)}</div>)}</div><button className="modal-close" onClick={() => setCompareOpen(false)}>Close comparison / إغلاق</button></section></div>}
