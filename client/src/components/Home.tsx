@@ -11,6 +11,7 @@ import { fetchEarthTerrainWindow, type EarthTerrainWindow } from "@/data/earthTe
 import { gisCentroidMarkers, type GISLayer } from "@/data/gisLayers";
 import { planetarySources, type PlanetBody } from "@/data/nasaSources";
 import { workbookAudit } from "@/data/workbookAudit";
+import { auditForSite, scientificAuditSummary } from "@/data/locationVerification";
 import { calculateMissionScore, evidenceBandForSite, evidenceLabel, missionScenarios, type MissionScenarioId } from "@/data/missionScenarios";
 import AIScout from "@/components/AIScout";
 import NasaClimateSnapshot from "@/components/NasaClimateSnapshot";
@@ -145,6 +146,7 @@ function Home() {
   const scenario = missionScenarios.find((item) => item.id === scenarioId) ?? missionScenarios[0];
   const selectedMissionScore = calculateMissionScore(selected, selectedTerrain, scenario);
   const selectedEvidenceBand = evidenceBandForSite(selected);
+  const selectedScientificAudit = auditForSite(selected);
   const workbookUnlocatedCount = catalogSites.filter((site) => site.origin === "excel" && (site.lat === null || site.lon === null)).length;
 
   const ui = language === "ar" ? {
@@ -257,7 +259,7 @@ function Home() {
 
         <aside className="side-panel">
           <div className="side-title-row"><div><span className="section-index">02</span><div><h2>Discovery console / وحدة الاستكشاف</h2><p>{workbookAudit.totalRows} workbook rows · {allSites.filter((site) => site.lat !== null && site.lon !== null).length} display points · {workbookAudit.coreFieldCoverage}% core-field coverage</p></div></div><div className="console-status"><span /> OPEN DATA</div></div>
-          <div className="data-audit-strip"><div><strong>DATA REGISTER / سجل البيانات</strong><span>{workbookAudit.totalRows} Excel rows loaded · {workbookAudit.uniqueIds} unique IDs</span></div><span className="audit-state"><i /> STRUCTURE CHECKED · SOURCE STATUS VISIBLE</span></div>
+          <div className="data-audit-strip"><div><strong>DATA REGISTER / سجل البيانات</strong><span>{workbookAudit.totalRows} Excel rows loaded · {workbookAudit.uniqueIds} unique IDs</span></div><span className="audit-state"><i /> {scientificAuditSummary.reviewedRows}/{scientificAuditSummary.totalRecords} SCIENTIFICALLY SCREENED · {scientificAuditSummary.highRisk} HIGH-RISK RECORDS FLAGGED</span></div>
 
           <section className="mission-planner" aria-label="Mission scenario planner"><div className="planner-head"><div><span className="planner-kicker">{ui.scenario} / التخطيط</span><strong>Evidence-weighted decision mode</strong></div><span className="planner-pill">{scenario.target}</span></div><select value={scenarioId} onChange={(event) => setScenarioId(event.target.value as MissionScenarioId)} aria-label="Choose mission scenario">{missionScenarios.map((item) => <option value={item.id} key={item.id}>{language === "ar" ? `${item.labelAr} · ${item.shortAr}` : `${item.label} · ${item.short}`}</option>)}</select><p>Score combines terrain, evidence, coordinate defensibility, environment and access. It is a triage aid—not a landing recommendation.</p><button className="analog-finder-launch" onClick={() => setAnalogFinderOpen(true)}><Sparkles size={14} /><span>Open Analog Finder / افتح مكتشف النظائر</span><ArrowUpRight size={13} /></button></section>
 
@@ -304,6 +306,7 @@ function Home() {
             <p className="detail-location"><MapPin size={12} /> {coordinateLabel(selected)} <span>·</span> {sitePlace(selected)}</p>
             <div className="site-provenance"><BadgeCheck size={12} /><span>{coordinateStatusLabel(selected)} · {selected.confidence}</span></div>
             {selected.coordinateNote && <p className="detail-description coordinate-note">{selected.coordinateNote}</p>}
+            {selectedScientificAudit && <section className="scientific-audit-card" aria-label="Scientific audit status"><div className="scientific-audit-head"><div><span className="planner-kicker">SCIENTIFIC AUDIT / التدقيق العلمي</span><strong>{selectedScientificAudit.verdict.replaceAll("_", " ")}</strong></div><span className={`audit-risk ${selectedScientificAudit.risk.toLowerCase()}`}>{selectedScientificAudit.risk} RISK</span></div><div className="scientific-audit-stats"><span><b>{selectedScientificAudit.confidence}</b> confidence</span><span><b>{selectedScientificAudit.sources.length}</b> sources</span><span><b>{selectedScientificAudit.supported_claims.length}</b> supported</span><span><b>{selectedScientificAudit.unverifiable_claims.length}</b> unresolved</span></div>{selectedScientificAudit.corrections.length > 0 && <p><strong>Before publication:</strong> {selectedScientificAudit.corrections[0]}</p>}<small>Exploratory evidence only · not a landing-site or base-suitability recommendation.</small></section>}
             <p className="detail-description">{selected.description}</p>
             {selected.why && <div className="score-explainer"><Activity size={13} /><span>{selected.why}</span></div>}
             <div className="selected-score-box"><div className="selected-score-head"><strong>ANALOG MATCH · TERRAIN ONLY</strong><span>{scoreTarget} reference</span></div><div className="selected-score-value">{selectedScore.score === null ? "—" : `${selectedScore.score}%`} <small>coverage {selectedScore.coverage}%</small></div><p>{selectedScore.interpretation}</p>{terrainStatus[selectedScoreKey] === "loading" && <small className="terrain-status">Sampling ASTER GDEM · 9 regional centres…</small>}{terrainStatus[selectedScoreKey] === "error" && <button className="retry-terrain" onClick={retrySelectedTerrain}>ASTER sample unavailable · retry</button>}{selected.lat === null || selected.lon === null ? <small className="terrain-status">No coordinate means no remote terrain sample and no score.</small> : null}</div>
