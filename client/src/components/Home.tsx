@@ -246,6 +246,11 @@ function Home() {
           </div>
           <div className="map-footer"><span><span className="foot-mark">i</span> Map imagery, NASA glTF, and scientific raster measurements are different layers. Calculated score is partial terrain screening only.</span><button onClick={() => setSourcesOpen(true)}>Methodology & sources / المنهجية <ArrowUpRight size={13} /></button></div>
 
+          <section className="analog-finder-feature" aria-label="Analog Finder">
+            <div className="analog-finder-feature-copy"><span className="section-index">03</span><div><span className="planner-kicker">ANALOG FINDER / مكتشف النظائر</span><h2>Find the closest Earth analog for a Moon or Mars target</h2><p>Adjust the mission priorities, compare the feature profile, and inspect the ranked terrestrial candidates. The tool is visible here as a core workflow—not hidden in a small side control.</p></div></div>
+            <div className="analog-finder-feature-action"><span>Transparent similarity screening · no invented measurements</span><button className="analog-finder-open-large" onClick={() => setAnalogFinderOpen(true)}><Sparkles size={16} /> Open Analog Finder <span dir="rtl">افتح مكتشف النظائر</span><ArrowUpRight size={14} /></button></div>
+          </section>
+
           {selectedFeature && <section className="feature-register" aria-label={`${activeWorld} named feature register`}>
             <div className="feature-register-head"><div><span className="section-index">IAU</span><div><h2>{activeWorld} features / معالم {activeWorld === "Moon" ? "القمر" : "المريخ"}</h2><p>USGS Gazetteer · named-feature centers, not landing sites</p></div></div><span>{activeFeatures.length} FEATURES</span></div>
             <div className="feature-chip-list">{activeFeatures.map((feature) => <button key={feature.id} className={feature.id === selectedFeature.id ? "feature-chip active" : "feature-chip"} onClick={() => setSelectedFeatureId(feature.id)}><strong>{feature.name}</strong><span dir="rtl">{feature.nameAr}</span><small>{feature.region} · {feature.latitude.toFixed(3)}°, {feature.longitudeEast.toFixed(3)}°E</small></button>)}</div>
