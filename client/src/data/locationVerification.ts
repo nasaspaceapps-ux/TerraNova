@@ -1,4 +1,5 @@
 import reportJson from "../../../data/scientific_audit_report.json";
+import progressJson from "../../../data/verification_progress.json";
 import type { Site } from "@/data/sites";
 
 export type ScientificAuditRecord = {
@@ -34,6 +35,8 @@ export function auditForSite(site: Site): ScientificAuditRecord | null {
 export const scientificAuditSummary = {
   reviewedRows: scientificAudit.reviewedRows,
   totalRecords: scientificAudit.records.length,
+  primaryReviewedRows: progressJson.completed.length,
+  pendingPrimaryRows: progressJson.notCompletedRows.length,
   partlySupported: scientificAudit.summary.verdictCounts.PARTLY_SUPPORTED ?? 0,
   highConfidence: scientificAudit.summary.confidenceCounts.HIGH ?? 0,
   mediumConfidence: scientificAudit.summary.confidenceCounts.MEDIUM ?? 0,
