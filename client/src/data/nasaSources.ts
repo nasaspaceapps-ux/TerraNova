@@ -10,11 +10,13 @@ export type PlanetDefinition = {
   glow: number;
 };
 
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
 export const planetDefinitions: Record<PlanetBody, PlanetDefinition> = {
   Earth: {
     label: "Earth",
-    model: "/models/nasa-earth.glb",
-    texture: "/textures/earth-blue-marble.jpg",
+    model: publicAsset("models/nasa-earth.glb"),
+    texture: publicAsset("textures/earth-blue-marble.jpg"),
     source: "NASA Solar System OpenData · 3D Earth",
     sourceUrl: "https://solarsystem.nasa.gov/gltf_embed/2393/",
     note: "Official NASA GLB model stored locally for stable rendering; not an analytical elevation layer.",
@@ -22,8 +24,8 @@ export const planetDefinitions: Record<PlanetBody, PlanetDefinition> = {
   },
   Moon: {
     label: "Moon",
-    model: "/models/nasa-moon.glb",
-    texture: "/textures/moon-lro-cgi.jpg",
+    model: publicAsset("models/nasa-moon.glb"),
+    texture: publicAsset("textures/moon-lro-cgi.jpg"),
     source: "NASA Solar System OpenData · 3D Moon",
     sourceUrl: "https://solarsystem.nasa.gov/gltf_embed/2366/",
     note: "Official NASA GLB model stored locally for stable rendering; use LOLA products, not the model mesh, for measurements.",
@@ -31,8 +33,8 @@ export const planetDefinitions: Record<PlanetBody, PlanetDefinition> = {
   },
   Mars: {
     label: "Mars",
-    model: "/models/nasa-mars.glb",
-    texture: "/textures/mars-viking-mosaic.jpg",
+    model: publicAsset("models/nasa-mars.glb"),
+    texture: publicAsset("textures/mars-viking-mosaic.jpg"),
     source: "NASA Science · 3D Mars model",
     sourceUrl: "https://science.nasa.gov/resource/planet-mars-3d-model/",
     note: "Official NASA GLB model stored locally for stable rendering; use MOLA/HRSC products, not the model mesh, for measurements.",
