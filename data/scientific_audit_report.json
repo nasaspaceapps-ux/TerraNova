@@ -97,75 +97,68 @@
       "id": "3",
       "site_name": "فوهة كامل النيزكية / Kamil Crater",
       "confidence": "HIGH",
-      "risk": "MEDIUM",
-      "verdict": "PARTLY_SUPPORTED",
+      "risk": "HIGH",
+      "verdict": "SUITABLE_WITH_LIMITS",
       "sources": [
-        "https://pubmed.ncbi.nlm.nih.gov/20651117/",
+        "https://onlinelibrary.wiley.com/doi/full/10.1111/maps.12023",
+        "https://doi.org/10.1111/maps.12023",
         "https://pubs.geoscienceworld.org/gsa/geology/article/39/2/179/130532/Kamil-Crater-Egypt-Ground-truth-for-small-scale",
-        "https://onlinelibrary.wiley.com/doi/full/10.1111/j.1945-5100.2011.01222.x",
-        "https://onlinelibrary.wiley.com/doi/full/10.1111/maps.12385",
-        "https://www.esa.int/Enabling_Support/Operations/University_of_Rome_to_host_Kamil_crater_seminar"
+        "https://doi.org/10.1130/G31624.1",
+        "https://kar.kent.ac.uk/88123/",
+        "https://epod.usra.edu/blog/2021/06/gebel-kamil-meteorite-and-kamil-impact-crater.html"
       ],
       "corrections": [
-        "لا تعرض قيمة العمق 10 م باعتبارها العمق البنيوي الوحيد: مصدر Science يذكر أن قاع الفوهة الحقيقي بعمق 16 م ويعلوه نحو 6 م من مواد ملء الفوهة؛ لذا يجب توضيح ما إذا كان 10 م هو final/visible depth، أو استبداله بوصف يميّز العمق الحقيقي عن الردم.",
-        "السرعة 3.5 كم/ث ليست سرعة اصطدام نهائية وحيدة مثبتة كما يوحي السجل. دراسة Fazio et al. تحسب 3.5 كم/ث للمكوّن الرأسي عند 30 GPa، و5.5 كم/ث عند 60 GPa؛ ومع افتراض زاوية 45° تصبح السرعة الكلية المحسوبة تقريبًا 5.0–7.5 كم/ث. حدّث الواجهة لتعرضها كمدى/حساب نموذجي لا كقيمة مفردة.",
-        "زاوية 45° ينبغي وسمها بأنها افتراض/استنتاج نمذجي من دراسة جيوفيزيائية، لا قياسًا مباشرًا؛ أما الدراسة الكيميائية فتصف مسارًا مائلًا بدرجة متوسطة (من الشمال الغربي).",
-        "اكتب اسم النيزك بدقة Gebel Kamil، وافصل بين تركيب النيزك الحديدي (نحو 20 wt% Ni، ataxite) وبين مكونات الهدف الرملي والزجاج الصدمي؛ السجل الحالي يجمعها في عبارة واحدة.",
-        "لا توجد إحداثيات في السجل رقم 3 نفسه؛ لا تُنشئ إحداثيات من مصادر ثانوية أو من التقريب الجغرافي. إن لزم عرضها، أضفها فقط بعد توثيقها بمصدر جغرافي أولي مستقل."
+        "Change coordinate status from unlocated/place not resolved to a published reference point; retain a caveat that WGS84 datum is not explicitly verified.",
+        "Replace the workbook's generic 'hypervelocity crater with rays' wording with the specific documented identity: Kamil simple impact crater, East Uweinat, Egypt, associated with Gebel Kamil iron meteorite.",
+        "Restrict analogue category to geology/morphology and impact-geology field-training; describe environment as limited dry-desert context only.",
+        "State that the analogue is for comparative science/training, not a landing, base, safety, or mission-operations recommendation.",
+        "Delete or qualify exact 3.5 km/s, >60 GPa, three 170–300 m rays, 12% slope, TiO2-II, and direct LRO Diviner calibration claims until individually supported by primary sources.",
+        "Do not infer a centroid or claim a surveyed site boundary from the published point."
       ],
       "supported_claims": [
-        "تقع الفوهة في جنوب/جنوب غرب مصر ضمن الصحراء الشرقية/منطقة شرق العوينات؛ وقد وثّقتها مصادر ESA والدراسات المحكمة بوصفها فوهة اصطدام نيزكي.",
-        "قطر الفوهة نحو 45 م، وعمرها أقل من 5000 سنة؛ وهي فوهة بسيطة حديثة ذات بنية أشعة مقذوفات محفوظة جيدًا.",
-        "الاصطدام نتج عن نيزك حديدي Gebel Kamil غني بالنيكل، مصنّف Ni-rich ungrouped ataxite؛ القيمة المنشورة تقارب 20 wt% Ni (وتعرض الدراسة التحليلية نحو 20.6–20.9 wt%).",
-        "توجد مصهورات/زجاجات اصطدامية وتحول صدمي؛ وقدّرت دراسة محكمة الضغوط القصوى المسجلة بنحو 30–60 GPa، مع دلالة على اصطدام hypervelocity.",
-        "الفكرة العامة لاستخدام Kamil كـ ground truth لدراسة الاصطدامات الصغيرة على الأرض مدعومة مباشرة في عنوان وملخص دراسة Geological Society of America."
+        "D’Orazio et al. report a 45 m diameter, 10 m deep, exceptionally well-preserved simple crater with bright rayed ejecta in flat rocky desert on subhorizontally layered sandstone.",
+        "The same paper publishes 22°01′06″N, 26°05′15″E and places it in East Uweinat, southern Egypt, about 2 km north of the Sudan border and 110 km east of the Libyan border.",
+        "The crater is described as formed by a single iron mass or tight fragment cluster, with NW incidence and an impact angle of approximately 30–45°.",
+        "The published summary table gives 45 ± 2 m final diameter, ~10 m floor depth, ~3 m rim height, bowl-shaped circular morphology, asymmetric/rayed ejecta, sandstone target, and archaeological age <5,000 years.",
+        "Folco et al. (GSA Geology) independently describe a <5 kyr, 45 m impact crater with pristine ejecta rays and shock metamorphism, explicitly framing it as ground truth for small-scale meteorite impacts on Earth.",
+        "USRA EPOD independently identifies the Egyptian Kamil Impact Crater and lists a nearby decimal coordinate, 22.0183, 26.0877."
       ],
       "unverifiable_claims": [
-        "العبارة المحددة «3 أشعة بطول 170–300 م» لم أتحقق منها من المصادر الأولية/المؤسسية التي راجعتها؛ يمكن الإبقاء على «بنية أشعة مقذوفات محفوظة» فقط إلى أن يُضاف مرجع مباشر يقيس الأطوال وعدد الأشعة.",
-        "وجود طور TiO2-II في مواد Kamil لم أتحقق منه بما يكفي من مصدر أولي مباشر متاح؛ لا تعرضه كحقيقة واجهة دون إحالة صريحة إلى دراسة معدنية محكمة تفحص عينات Kamil.",
-        "ربط الموقع تحديدًا بمعايرة بيانات LRO Diviner ونماذج تفتت النيازك هو تطبيق مقترح للمشروع، وليس نتيجة مثبتة عن الموقع في المصادر التي راجعتها؛ اعرضه كـ proposed mission/application.",
-        "التعميم بأن الفوهة تمثل مباشرة فوهات القمر وعطارد «ذات الأشعة» هو تفسير تناظري معقول، لكنه ليس قياسًا أو تصنيفًا رسميًا للموقع الأرضي؛ افصل في الواجهة بين حقائق الموقع وبين قيمة analog المقترحة."
+        "The workbook row has null latitude/longitude and labels the lead unverified, but at least two peer-reviewed/institutional sources resolve the site and publish the same DMS point. The reviewed evidence supports a critical analogue assessment, not a recommendation for landing or habitation.",
+        "PUBLISHED_POINT; WGS84_DATUM_UNCONFIRMED"
       ]
     },
     {
       "id": "4",
       "site_name": "حقل بحيرة جينغبو البركاني (Jingpo Lake Volcanic Field, JLVF)",
-      "confidence": "MEDIUM",
-      "risk": "MEDIUM",
-      "verdict": "PARTLY_SUPPORTED",
+      "confidence": "MEDIUM-HIGH",
+      "risk": "HIGH",
+      "verdict": "SUITABLE_WITH_LIMITS",
       "sources": [
         "https://www.unesco.org/en/iggp/jingpohu-unesco-global-geopark",
-        "https://www.mdpi.com/2072-4292/18/3/512",
-        "https://www.lpi.usra.edu/lunar/lunar_flyovers/marius_hills/",
-        "https://science.nasa.gov/photojournal/marius-hills-pit-lava-tube-skylight/",
-        "https://science.nasa.gov/resource/a-lunar-mystery-the-gruithuisen-domes/",
-        "http://en.earth-science.net/en/article/doi/10.1007/s12583-011-0211-8"
+        "https://volcano.si.edu/volcano.cfm?vn=305040",
+        "http://english.igsnrr.cas.cn/ecg/naturalscenery/lakes/202011/t20201119_251403.html",
+        "https://www.mdpi.com/2072-4292/18/3/512"
       ],
       "corrections": [
-        "استبدال العبارة الكمية «أنابيب بركانية بطول أكبر من 20 كم» بقياس موثق مع مرجع محدد أو حذفها؛ المصادر المتاحة هنا تثبت وجود lava pipes/skylights في JLVF ولا تثبت هذا الطول.",
-        "حذف أو توثيق مستقل لعبارات «مخاريط بزاوية 90 درجة» و«ميل 0-88 درجة»؛ هذه مواصفات مورفومترية دقيقة ولم أجد لها سنداً مؤسسياً/محكماً واضحاً في المصادر المتاحة.",
-        "لا تعرض «بازلت باهويهوي صفائحي، شقوق انتفاخ، مخاريط خبث، ومنخفضات ذات حافة حادة وخندق محيط» كحزمة مثبتة للموقع من دون بيانات ميدانية/تحليل صخري مباشر؛ UNESCO يثبت المجال البركاني والمخاريط والفوهات، لا هذه القائمة التفصيلية.",
-        "إعادة صياغة «تفسير بقع الماريا غير المنتظمة (IMPs) كانهيار ضحل لقشرة الحمم» إلى فرضية/سؤال بحثي؛ لم يثبت المصدر المتاح أن هذا التفسير محسوم، كما أن IMPs تخص القمر وليست خاصية مثبتة لـJLVF.",
-        "توضيح أن Marius Hills وGruithuisen Domes موقعان قمريان للمقارنة، وليسا أجزاء من حقل Jingpo Lake؛ السجل يجمع عدة مواقع/ميزات في بطاقة واحدة.",
-        "إعادة صياغة «تقييم صلاحية الأنابيب القمرية كملاجئ بشرية» إلى «دراسة قابلية محتملة»؛ NASA تصف منور Marius بأنه possible skylight، ولا تثبت صلاحية مأوى بشرياً. و«سد فجوة الدقة المكانية بطائرات UAV» هدف منهجي مقترح وليس نتيجة موثقة.",
-        "عدم إدراج إحداثيات للموقع في الواجهة اعتماداً على هذا السجل؛ لا توجد إحداثيات موثقة فيه."
+        "Replace any implied single coordinate/centroid with the published field range and separately label 44.08°N, 128.83°E as the Smithsonian GVP representative catalog point.",
+        "Change ‘lava tubes and sinuous rilles and maria spots’ to ‘lava tubes and collapse/skylight chains as a morphology/process analogue to lunar sinuous-rille contexts’; terrestrial IMP equivalence is not established.",
+        "Delete or soften ‘pahoehoe’ unless tied to the specific cited paper/flow unit; the authoritative sources reviewed support basaltic lava flows and vents, not every listed texture or mineralogical detail.",
+        "Delete the claim that collapse trenches transition U-to-V and the interpretation of lunar irregular mare patches as shallow lava-crust collapse unless each is separately sourced; it is not established by UNESCO, CAS or GVP.",
+        "Delete ‘assessment of lunar tubes as human shelters’ and any shelter/habitability recommendation; retain only comparative lava-tube morphology, subsurface mapping and field-training use.",
+        "Do not state that terrestrial basalt is compositionally equivalent to lunar mare basalt; the cited study itself notes chemical differences and argues only convergent rheology.",
+        "Replace any landing/base recommendation language with ‘research analogue suitability only; not a landing-site or base recommendation.’"
       ],
       "supported_claims": [
-        "Jingpohu يقع في نينغآن، مقاطعة Heilongjiang في شمال شرق الصين، ويضم حقلاً بركانياً محفوظاً؛ وتذكر UNESCO وجود أربعة مخاريط بركانية مركبة ومخروط مفرد و12 فوهة، مع نشاط موثق تقريباً بين 12,000 و5,140 سنة مضت.",
-        "وجود سياق بركاني أرضي مناسب للمقارنة مع القمر مدعوم إجمالاً: المصدر المحكّم عن Marius Hills يصفها كمنصة بركانية غنية بالقباب والمخاريط والحواف والأخاديد، ويذكر بقايا أنابيب حمم ومناور (skylights).",
-        "تلال Marius مرتبطة بالأنابيب البركانية والأخاديد المتعرجة والقباب البركانية؛ ويؤكد NASA أن Marius Hills pit هو منور محتمل لأنبوب حمم، لا أنبوباً مؤكداً أو مسحاً داخلياً مكتملًا.",
-        "Gruithuisen Domes ميزة قمرية متميزة عن تدفقات البازلت المحيطة، وتفسر NASA تشكلها بثورات من lavas غنية بالسيليكا؛ لذلك فالربط العام بميزات قمرية بركانية صحيح، لكنه لا يثبت تطابقاً جيولوجياً بين JLVF وGruithuisen.",
-        "يمكن استخدام الموقع كمرشح/نظير بحثي لدراسة أنابيب الحمم والمناور القمرية، لكن هذا استنتاج تطبيقي يحتاج إلى قياسات مقارنة ومعايرة، وليس حقيقة ميدانية مثبتة لكل عناصر السجل."
+        "UNESCO identifies Jingpohu UNESCO Global Geopark in Ning'an, southeastern Heilongjiang, within the Cenozoic volcanic zone near the Tan-Lu Fault; it reports eruptions approximately 12,000–5,140 years ago, four compound cones, one single cone and twelve craters.",
+        "CAS/IGSNRR states that lava eruptions blocked the Mudan River to form Jingpo Lake about 10,000 years ago; it describes a >20 km area near Small North Lake containing seven vents and the Underground Forest.",
+        "Smithsonian GVP catalogs Jingpohu as a volcanic-field cluster at 44.08°N, 128.83°E, elevation 1,000 m, with last known eruption 520 BCE; its eruption history includes lava flow and scoria, and an earlier event includes phreatomagmatic and pyroclastic-flow evidence.",
+        "The peer-reviewed Remote Sensing study defines the JLVF study area as 43°52′–44°20′N, 128°30′–129°00′E and describes Holocene effusive alkali-olivine-basalt flows, lava tubes, collapse skylights and a terrestrial comparison to lunar lava-flow geomorphology.",
+        "The workbook itself supplied no latitude/longitude and marked the site unlocated/unresolved; its descriptive fields are hypotheses, not independently sourced evidence."
       ],
       "unverifiable_claims": [
-        "الطول الأكبر من 20 كم للأنابيب البركانية في JLVF.",
-        "زاوية المخاريط 90 درجة ومجال الميل 0-88 درجة.",
-        "التركيب المحدد pahoehoe sheet basalt وشقوق الانتفاخ والمنخفضات ذات الخندق المحيط كخصائص مثبتة مجتمعة للموقع.",
-        "تحول خنادق الانهيار من مقطع U إلى V في JLVF.",
-        "أن تفسير IMPs بانهيار ضحل لقشرة الحمم هو التفسير المعتمد أو المحسوم.",
-        "أن JLVF نظير عالي fidelity أو أن تشابهه الهندسي مع Marius Hills مثبت بما يكفي دون عرض المنهج والبيانات الكاملة.",
-        "صلاحية الأنابيب القمرية كملاجئ بشرية، وسد فجوة الدقة المكانية بواسطة UAV، كنتاج مثبت لا كمقترح بحثي.",
-        "أي إحداثيات أو حدود مكانية دقيقة لـJLVF من السجل الحالي."
+        "The MDPI article is a 2026 Remote Sensing study and should be treated as a research source for the stated extent/morphology, while UNESCO, CAS and Smithsonian GVP independently establish the real place, volcanic-field character, lake genesis, vents/craters and a representative catalog coordinate. No files were modified.",
+        "RANGE_VERIFIED; SINGLE_POINT_ONLY_REPRESENTATIVE. A published study gives the JLVF extent as 43°52′–44°20′N, 128°30′–129°00′E. Smithsonian GVP gives 44.08°N, 128.83°E for its cataloged Jingpohu volcanic-field/cluster entry, but that is not a surveyed centroid or a boundary. Therefore one WGS84 point for the whole JLVF cannot be proven without selecting a named vent or defining a polygon."
       ]
     },
     {

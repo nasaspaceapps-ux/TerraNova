@@ -1,0 +1,75 @@
+{
+  "scope": "Excel rows 3–44",
+  "completed": [
+    {
+      "row": 3,
+      "id": "excel-03",
+      "name": "Kamil Crater",
+      "status": "integrated",
+      "sources": [
+        "https://onlinelibrary.wiley.com/doi/full/10.1111/maps.12023",
+        "https://doi.org/10.1111/maps.12023",
+        "https://pubs.geoscienceworld.org/gsa/geology/article/39/2/179/130532/Kamil-Crater-Egypt-Ground-truth-for-small-scale",
+        "https://doi.org/10.1130/G31624.1",
+        "https://kar.kent.ac.uk/88123/",
+        "https://epod.usra.edu/blog/2021/06/gebel-kamil-meteorite-and-kamil-impact-crater.html"
+      ]
+    },
+    {
+      "row": 4,
+      "id": "excel-04",
+      "name": "Jingpo Lake Volcanic Field",
+      "status": "integrated",
+      "sources": [
+        "https://www.unesco.org/en/iggp/jingpohu-unesco-global-geopark",
+        "https://volcano.si.edu/volcano.cfm?vn=305040",
+        "http://english.igsnrr.cas.cn/ecg/naturalscenery/lakes/202011/t20201119_251403.html",
+        "https://www.mdpi.com/2072-4292/18/3/512"
+      ]
+    }
+  ],
+  "notCompletedRows": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44
+  ],
+  "reason": "Parallel research batch stopped after two completed items because the research-credit limit was reached. Remaining rows stay Unverified/Exploratory until primary-source review.",
+  "policy": "No coordinates or analogue suitability are invented for unreviewed rows."
+}
